@@ -95,19 +95,19 @@ async def update_telegram_message(bot: Bot):
     artist_md = escape_markdown(track["artist"])
     title_md = escape_markdown(track["title"])
     if track["now_playing"]:
-        status = "🟢Сейчас слушает"
+        status = "🟢"
     elif track.get("paused"):
-        status = "⏸️ На паузе"
+        status = "⏸️"
     else:
-        status = f"⏸️ Трек играл ({format_time(track['timestamp'])})"
+        status = f"⏸️"
     status_md = escape_markdown(status)
     track_link_md = (
-        f"\n\n[👉 Ссылка на трек]({track['url']})" if track.get("url") else ""
+        f"\n\n[👉 Ссылка]({track['url']})" if track.get("url") else ""
     )
-    new_text_md = f"*{artist_md}* — *{title_md}*\n\n{status_md}{track_link_md}"
+    new_text_md = f"{status_md}*{artist_md}* — *{title_md}*{track_link_md}"
     new_text_plain = (
-        f"{track['artist']} - {track['title']}\n\n{status}\n\n"
-        f"👉 Ссылка на трек: {track['url']}"
+        f"{status}{track['artist']} - {track['title']}"
+        f"👉 Ссылка: {track['url']}"
     )
 
     if (
